@@ -138,16 +138,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Genero">Género:</label>
-                        <div class="formulario">
-                            <select id="Genero" name="Genero" required class="custom-select">
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="Direccion">Dirección:</label>
                         <div class="formulario">
                             <input type="text" id="Direccion" name="Direccion" placeholder="Dirección" required/></div>
@@ -170,15 +160,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Password-cliente">Contraseña:</label>
+                        <label for="Passwordd-cliente">Contraseña:</label>
                         <div class="formulario">
-                            <input type="password" id="Password-cliente" name="Password-cliente"
+                            <input type="password" id="Passwordd-cliente" name="Passwordd-cliente"
                                    placeholder="Contraseña" required/></div>
                     </div>
                     <div class="form-group">
-                        <label for="Confirmar-Password">Confirmar Contraseña:</label>
+                        <label for="Confirmar-Passwordd">Confirmar Contraseña:</label>
                         <div class="formulario">
-                            <input type="password" id="Confirmar-Password" name="Confirmar-Password"
+                            <input type="password" id="Confirmar-Passwordd" name="Confirmar-Passwordd"
                                    placeholder="Confirmar Contraseña" required/>
                         </div>
                     </div>
@@ -295,7 +285,7 @@
         const provincia = document.getElementById('Provincia').value;
         const ciudad = document.getElementById('Ciudad').value;
         const usuario = document.getElementById('Usuario-cliente').value;
-        const password = document.getElementById('Password-cliente').value;
+        const passwordd = document.getElementById('Passwordd-cliente').value;
 
 
         // Crea un objeto con los datos del usuario
@@ -307,10 +297,10 @@
             provincia,
             ciudad,
             usuario,
-            password
+            passwordd
         };
+        console.log("llegamos hasta aqui - usuario DATA: ", usuarioData);
 
-        // Realiza la petición POST al backend
         fetch('http://localhost:8080/primerServlet/', {
             method: 'POST',
             headers: {
@@ -318,7 +308,8 @@
             },
             body: JSON.stringify(usuarioData)
         })
-            .then(response => response.json())
+            .then(response => response.text())
+
             .then(data => {
                 // Maneja la respuesta del backend (si es necesario)
                 console.log('Respuesta del backend:', data);

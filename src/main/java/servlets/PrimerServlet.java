@@ -15,6 +15,9 @@ import infrastructure.persistence.mysql.MysqlRepositoryImpl;
 import mappers.UsuarioMapper;
 import models.Usuario;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 @WebServlet(urlPatterns = "/endpoint")
 public class PrimerServlet extends HttpServlet {
 	
@@ -44,45 +47,26 @@ public class PrimerServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nombre = request.getParameter("nombreInput");
-		String apellido = request.getParameter("apellidoInput");
-		
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String email = request.getParameter("email");
+		String direccion = request.getParameter("direccion");
+		String provincia = request.getParameter("provincia");
+		String ciudad = request.getParameter("ciudad");
+		String usuario = request.getParameter("usuario");
+		String passwordd = request.getParameter("passwordd");
+
 		System.out.println("nombre de usuario: " + nombre + " " + apellido);
 		
 //		response.getWriter().write("nombre de usuario: " + nombre + " " + apellido +" ha sido dado de alta");
 	
-		Usuario usuario = new Usuario(nombre, apellido);
+		Usuario newUsuario = new Usuario(nombre, apellido, email, direccion, provincia, ciudad, usuario, passwordd);
 		
 		// persistir el objeto
 		
-		sistemaPersistencia.guardarUsuario(usuario);
-		
-		// para devolver el usuario creado tenemos que darle formato Json
-		String userJsonFake = String.format(
-				
-				"{\"id\": \"%s\", \"nombre\": \"%s\"  }",
-				usuario.getIdUsuario(), usuario.getNombre()
-				
-				);
-		
-		/* 
-		 * { 
-		 * 	 "nombre" : "Semper",
-		 *   "apellido" : "Evincere"
-		 *  }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * */ 
-		// podemos utilizar una libreria como Jackson para manipular los json
-		UsuarioMapper mapper = new UsuarioMapper();
-		
-		String usuarioJson = mapper.toJson(usuario);
-		
-		response.getWriter().write(usuarioJson);
-		
-//		response.sendRedirect("confirmacion.html");
+		sistemaPersistencia.guardarUsuario(newUsuario);
+
+		response.sendRedirect("login.html");
 		
 	}
 

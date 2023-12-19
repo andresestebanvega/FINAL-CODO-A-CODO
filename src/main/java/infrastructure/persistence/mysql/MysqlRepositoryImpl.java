@@ -20,8 +20,8 @@ public class MysqlRepositoryImpl implements IPersistencia {
 	
 	@Override
 	public void guardarUsuario(Usuario newUsuario) {
-		String query = "INSERT INTO users (nombre,apellido,email,provincia,ciudad,USER_NAME, direccion, password) VALUES (?,?,?,?,?,?,?,?)";
-		
+		String query = "INSERT INTO users (nombre,apellido,email,provincia,ciudad,USER_NAME, direccion, passwordd) VALUES (?,?,?,?,?,?,?,?)";
+		System.out.println("hola estoy ejecutando la query");
 		try {
 			PreparedStatement statement = conexion.prepareStatement(query);
 			
@@ -32,7 +32,7 @@ public class MysqlRepositoryImpl implements IPersistencia {
 			statement.setString(5, newUsuario.getCiudad());
 			statement.setString(6, newUsuario.getUsuario());
 			statement.setString(7, newUsuario.getDireccion());
-			statement.setString(8, newUsuario.getPassword());
+			statement.setString(8, newUsuario.getPasswordd());
 
 			
 			statement.execute();
@@ -70,10 +70,10 @@ public class MysqlRepositoryImpl implements IPersistencia {
 				String ciudad = result.getString("ciudad");
 				String usuario = result.getString("USER_NAME");
 				String direccion = result.getString("direccion");
-				String password = result.getString("password");
+				String passwordd = result.getString("passwordd");
 				
 				// crear un nuevo objeto 
-				Usuario usuarioNew = new Usuario(id, nombre, apellido, email, provincia, ciudad, usuario, direccion,password);
+				Usuario usuarioNew = new Usuario(nombre, apellido, email, provincia, ciudad, usuario, direccion,passwordd);
 				usuarios.add(usuarioNew);
 			}
 			

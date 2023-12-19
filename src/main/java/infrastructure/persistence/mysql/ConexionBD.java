@@ -10,8 +10,8 @@ public class ConexionBD {
 
 		String host = "localhost";
 		String port = "3306";
-		String username = "prueba1";
-		String password = "prueba1";
+		String username = "root";
+		String password = "root";
 		String nombredb = "cosmetoLover";
 
 		// Driver de conexion a la base de datos (MySql)
