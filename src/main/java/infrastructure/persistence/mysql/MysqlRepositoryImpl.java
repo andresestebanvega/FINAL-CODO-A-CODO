@@ -21,7 +21,7 @@ public class MysqlRepositoryImpl implements IPersistencia {
 	@Override
 	public void guardarUsuario(Usuario newUsuario) {
 		String query = "INSERT INTO users (nombre,apellido,email,provincia,ciudad,USER_NAME, direccion, passwordd) VALUES (?,?,?,?,?,?,?,?)";
-		System.out.println("hola estoy ejecutando la query");
+
 		try {
 			PreparedStatement statement = conexion.prepareStatement(query);
 			
@@ -52,6 +52,7 @@ public class MysqlRepositoryImpl implements IPersistencia {
 	@Override
 	public ArrayList<Usuario> getAll() {
 		
+		/*
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 		
 		String query = "SELECT * FROM users";
@@ -83,6 +84,9 @@ public class MysqlRepositoryImpl implements IPersistencia {
 		}
 		
 		return usuarios;
+
+		 */
+		return null;
 	}
 
 	@Override

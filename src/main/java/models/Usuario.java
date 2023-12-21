@@ -4,10 +4,8 @@ import java.util.UUID;
 
 public class Usuario {
 
-    private static int contador;
+    private int user_Id;
 
-    private int idUsuario;
-    private UUID idUUID;
     private String nombre;
     private String apellido;
 
@@ -17,21 +15,6 @@ public class Usuario {
     private String usuario;
     private String direccion;
     private String passwordd;
-
-
-    public Usuario(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.idUsuario = ++contador;
-        this.idUUID = UUID.randomUUID(); // modo alternativo
-    }
-
-    public Usuario(int id, String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.idUsuario = id;
-        this.idUUID = UUID.randomUUID(); // modo alternativo
-    }
 
     public Usuario(String nombre, String apellido, String email, String direccion, String provincia, String ciudad, String usuario, String passwordd) {
         this.nombre = nombre;
@@ -52,13 +35,31 @@ public class Usuario {
         return apellido;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public UUID getIdUUID() {
-        return idUUID;
+    public String getProvincia() {
+        return provincia;
     }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getPasswordd() {
+        return passwordd;
+    }
+
+
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -93,27 +94,22 @@ public class Usuario {
     }
 
 
-    public String getEmail() {
-        return email;
+    public int getUser_Id() { return user_Id;
     }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getPasswordd() {
-        return passwordd;
+    public void setUser_Id(int user_Id) { this.user_Id = user_Id;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

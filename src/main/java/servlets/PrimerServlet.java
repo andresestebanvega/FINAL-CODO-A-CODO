@@ -25,48 +25,76 @@ public class PrimerServlet extends HttpServlet {
 //	IPersistencia sistemaPersistencia = new MemoryRepositoryImpl();
 //	IPersistencia sistemaPersistencia = new FileRepositoryImpl();
 	IPersistencia sistemaPersistencia = new MysqlRepositoryImpl();
-	UsuarioMapper mapper = new UsuarioMapper();
-   
+
     public PrimerServlet() {
        
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		IPersistencia persistenciaSistema = new MemoryRepositoryImpl();
+
+		Usuario usuarioEncontrado = persistenciaSistema.getUsuarioById(request.getParameter("id"));
+
+		UsuarioMapper mapper = new UsuarioMapper();
+
+		String usuarioEncontradoJson = mapper.toJson(usuarioEncontrado);
+
+
+
 		ArrayList<Usuario> listaDeUsuarios = sistemaPersistencia.getAll();
-		
+
 		String usuariosJson = mapper.toJson(listaDeUsuarios);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		
-		response.getWriter().write(usuariosJson);
-		
+
+		PrintWriter out = response.getWriter();
+		out.write("<h1>REQUEST CONTESTADA DESDE EL SERVLET<h1>");
+		out.write("<p>podria ser un párrafo también<p>");
+		out.write(usuarioEncontradoJson);
+
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
-		String email = request.getParameter("email");
-		String direccion = request.getParameter("direccion");
-		String provincia = request.getParameter("provincia");
-		String ciudad = request.getParameter("ciudad");
-		String usuario = request.getParameter("usuario");
-		String passwordd = request.getParameter("passwordd");
+		String nombre = request.getParameter("nombreInput");
+		String apellido = request.getParameter("apellidoInput");
+		String email = request.getParameter("emailInput");
+		String provincia = request.getParameter("provinciaInput");
+		String ciudad = request.getParameter("ciudadInput");
+		String usuario = request.getParameter("usuarioInput");
+		String direccion = request.getParameter("direccionInput");
+		String passwordd = request.getParameter("passworddInput");
 
-		System.out.println("nombre de usuario: " + nombre + " " + apellido);
+		System.out.println("nombre de usuario: " + nombre + " " + apellido + "email: " + email + "direccion: "
+						+ direccion + "provincia: " + provincia + "ciudad: " + ciudad + "usuario: " + usuario
+						+ "passwordd: " + passwordd);
 		
-//		response.getWriter().write("nombre de usuario: " + nombre + " " + apellido +" ha sido dado de alta");
+//		//response.getWriter().write("nombre de usuario: " + nombre + " " + apellido +" ha sido dado de alta");
 	
-		Usuario newUsuario = new Usuario(nombre, apellido, email, direccion, provincia, ciudad, usuario, passwordd);
+		Usuario newUsuario = new Usuario(nombre, apellido, email, provincia, ciudad, usuario,direccion, passwordd);
 		
 		// persistir el objeto
 		
 		sistemaPersistencia.guardarUsuario(newUsuario);
 
-		response.sendRedirect("login.html");
+		// para devolver el usuario creado tenemos que darle formato Json
+		String userJsonFake = String.format(
+
+				"{\"nombre\": \"%s\", \"apellido\": \"%s\", \"email\": \"%s\", \"direccion\": \"%s\"" +
+						", \"provincia\": \"%s\", \"ciudad\": \"%s\", \"usuario\": \"%s\", \"passwordd\": \"%s\"  }",
+
+				newUsuario.getNombre(), newUsuario.getApellido(), newUsuario.getEmail(), newUsuario.getDireccion(),
+				newUsuario.getProvincia(), newUsuario.getCiudad(), newUsuario.getUsuario(), newUsuario.getPasswordd()
+		);
+
+		// podemos utilizar una libreria como Jackson para manipular los json
+		UsuarioMapper mapper = new UsuarioMapper();
+
+		String usuarioJson = mapper.toJson(newUsuario);
+
+		response.getWriter().write(usuarioJson);
+
+
+//		response.sendRedirect("login.html");
 		
 	}
 

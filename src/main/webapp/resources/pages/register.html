@@ -116,53 +116,53 @@
                 <br>
                 <p>Registrate para poder comprar nuestros productos y acceder a nuestros servicios.</p>
                 <br>
-                <form id="miRegistro" onsubmit="enviarDatos(); return false;" action="login.html" method="POST">
+                <form id="miRegistro" onsubmit="enviarDatos(); return false;" action="endpoint" method="POST">
                     <div class="form-group">
 
                         <label for="Nombre">Nombre:</label>
                         <div class="formulario">
-                            <input type="text" id="Nombre" name="Nombre" placeholder="Nombre" required/>
+                            <input type="text" id="Nombre" name="nombreInput" placeholder="Nombre" required/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="Apellido">Apellido:</label>
                         <div class="formulario">
-                            <input type="text" id="Apellido" name="Apellido" placeholder="Apellido" required/>
+                            <input type="text" id="Apellido" name="apellidoInput" placeholder="Apellido" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Email-cliente">Correo Electrónico:</label>
                         <div class="formulario">
-                            <input type="email" id="Email-cliente" name="Email-cliente" placeholder="Correo Electrónico"
+                            <input type="email" id="Email-cliente" name="emailInput" placeholder="Correo Electrónico"
                                    required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Direccion">Dirección:</label>
                         <div class="formulario">
-                            <input type="text" id="Direccion" name="Direccion" placeholder="Dirección" required/></div>
+                            <input type="text" id="Direccion" name="direccionInput" placeholder="Dirección" required/></div>
                     </div>
                     <div class="form-group">
                         <label for="Provincia">Provincia:</label>
                         <div class="formulario">
-                            <input type="text" id="Provincia" name="Provincia" placeholder="Provincia" required/></div>
+                            <input type="text" id="Provincia" name="provinciaInput" placeholder="Provincia" required/></div>
                     </div>
                     <div class="form-group">
                         <label for="Ciudad">Ciudad:</label>
                         <div class="formulario">
-                            <input type="text" id="Ciudad" name="Ciudad" placeholder="Ciudad" required/></div>
+                            <input type="text" id="Ciudad" name="ciudadInput" placeholder="Ciudad" required/></div>
                     </div>
                     <div class="form-group">
                         <label for="Usuario-cliente">Usuario:</label>
                         <div class="formulario">
-                            <input type="text" id="Usuario-cliente" name="Usuario-cliente" placeholder="Usuario"
+                            <input type="text" id="Usuario-cliente" name="usuarioInput" placeholder="Usuario"
                                    required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Passwordd-cliente">Contraseña:</label>
                         <div class="formulario">
-                            <input type="password" id="Passwordd-cliente" name="Passwordd-cliente"
+                            <input type="password" id="Passwordd-cliente" name="passworddInput"
                                    placeholder="Contraseña" required/></div>
                     </div>
                     <div class="form-group">
@@ -173,7 +173,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit">Registrarse</button>
+                        <button type="submit" onclick="enviarDatos(event)">Registrarse</button>
                     </div>
                 </form>
                 <a href="./login.html">¿Ya tienes cuenta? Iniciar sesión</a>
@@ -277,6 +277,7 @@
 
 <script>
     function enviarDatos() {
+        event.preventDefault();
         // Obtiene los valores de los campos del formulario
         const nombre = document.getElementById('Nombre').value;
         const apellido = document.getElementById('Apellido').value;
@@ -288,35 +289,24 @@
         const passwordd = document.getElementById('Passwordd-cliente').value;
 
 
-        // Crea un objeto con los datos del usuario
-        const usuarioData = {
-            nombre,
-            apellido,
-            email,
-            direccion,
-            provincia,
-            ciudad,
-            usuario,
-            passwordd
-        };
-        console.log("llegamos hasta aqui - usuario DATA: ", usuarioData);
+        fetch(`endpoint?nombreInput=${nombre}&apellidoInput=${apellido}
+        &emailInput=${email}&direccionInput=${direccion}&provinciaInput=${provincia}&ciudadInput=${ciudad}
+        &usuarioInput=${usuario}&passworddInput=${passwordd}`, {
+            method: 'POST'
 
-        fetch('http://localhost:8080/primerServlet/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(usuarioData)
-        })
-            .then(response => response.text())
-
-            .then(data => {
-                // Maneja la respuesta del backend (si es necesario)
-                console.log('Respuesta del backend:', data);
-                // Puedes realizar otras acciones después de la respuesta exitosa
-            })
+        }).then(response => response.json())
+            .then(data => renderizarCard([data]))
             .catch(error => console.error('Error:', error));
+
+        nombre.value = '';
+        apellido.value = '';
     }
+
+
+
+
+
+
 </script>
 
 

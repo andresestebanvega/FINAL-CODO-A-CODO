@@ -38,7 +38,7 @@ public class MemoryRepositoryImpl implements IPersistencia {
 	public Usuario update(Usuario datosParaActualizar) {
 		
 		for (Usuario usuario : usuarioGuardados) {
-            if (usuario.getIdUsuario() == (datosParaActualizar.getIdUsuario())) {
+            if (usuario.getNombre() == (datosParaActualizar.getNombre())) {
                 // Actualizar los datos del usuario
                 usuario.setNombre(datosParaActualizar.getNombre());
                 usuario.setApellido(datosParaActualizar.getApellido());
@@ -51,7 +51,7 @@ public class MemoryRepositoryImpl implements IPersistencia {
 	@Override
 	public void delete(int id) {
 		
-		usuarioGuardados.removeIf(usuario -> usuario.getIdUsuario()==(id)); // Eliminar usuario por ID
+		usuarioGuardados.removeIf(usuario -> usuario.getUser_Id()==(id)); // Eliminar usuario por ID
 		
 	}
 

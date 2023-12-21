@@ -12,7 +12,7 @@ public class ConexionBD {
 		String port = "3306";
 		String username = "root";
 		String password = "root";
-		String nombredb = "cosmetoLover";
+		String nombredb = "cosmetolover";
 
 		// Driver de conexion a la base de datos (MySql)
 
