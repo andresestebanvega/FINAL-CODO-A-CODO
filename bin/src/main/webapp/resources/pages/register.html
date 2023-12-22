@@ -289,9 +289,9 @@
         const passwordd = document.getElementById('Passwordd-cliente').value;
 
 
-        fetch(`http://localhost:8080/primerServlet/endpoint?nombreInput=${nombre}&apellidoInput=${apellido}
-            &emailInput=${email}&direccionInput=${direccion}&provinciaInput=${provincia}&ciudadInput=${ciudad}
-            &usuarioInput=${usuario}&passworddInput=${passwordd}`, {
+        fetch(`endpoint?nombreInput=${nombre}&apellidoInput=${apellido}
+        &emailInput=${email}&direccionInput=${direccion}&provinciaInput=${provincia}&ciudadInput=${ciudad}
+        &usuarioInput=${usuario}&passworddInput=${passwordd}`, {
             method: 'POST'
 
         }).then(response => response.json())

@@ -21,7 +21,7 @@ public class MysqlRepositoryImpl implements IPersistencia {
 	@Override
 	public void guardarUsuario(Usuario newUsuario) {
 		String query = "INSERT INTO users (nombre,apellido,email,provincia,ciudad,USER_NAME, direccion, passwordd) VALUES (?,?,?,?,?,?,?,?)";
-
+		
 		try {
 			PreparedStatement statement = conexion.prepareStatement(query);
 			

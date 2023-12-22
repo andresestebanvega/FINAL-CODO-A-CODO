@@ -94,7 +94,7 @@ public class PrimerServlet extends HttpServlet {
 		response.getWriter().write(usuarioJson);
 
 
-//		response.sendRedirect("login.html");
+		response.sendRedirect("login.html");
 		
 	}
 
